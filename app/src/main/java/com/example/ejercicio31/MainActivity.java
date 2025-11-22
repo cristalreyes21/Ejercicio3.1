@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.*;
 import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 import okhttp3.*;
 
@@ -14,14 +18,14 @@ public class MainActivity extends AppCompatActivity {
 
     EditText editId, editNombre, editPrecio, editStock;
     TextView textResultado;
-    ApiClient api;
+    ApiCliente api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        api = new ApiClient();
+        api = new ApiCliente();
 
         editId = findViewById(R.id.editId);
         editNombre = findViewById(R.id.editNombre);
@@ -126,6 +130,32 @@ public class MainActivity extends AppCompatActivity {
 
     // MOSTRAR RESULTADO EN UI
     private void mostrar(String mensaje) {
-        runOnUiThread(() -> textResultado.setText(mensaje));
+        runOnUiThread(() -> {
+            try {
+                // Intentar detectar si es un arreglo JSON
+                if (mensaje.trim().startsWith("[")) {
+                    JSONArray array = new JSONArray(mensaje);
+                    StringBuilder sb = new StringBuilder();
+
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject obj = array.getJSONObject(i);
+                        sb.append("ID: ").append(obj.getString("id")).append("\n");
+                        sb.append("Nombre: ").append(obj.getString("nombre")).append("\n");
+                        sb.append("Precio: ").append(obj.getString("precio")).append("\n");
+                        sb.append("Stock: ").append(obj.getString("stock")).append("\n");
+                        sb.append("--------------------------\n");
+                    }
+
+                    textResultado.setText(sb.toString());
+                } else {
+                    // Si no es JSON, mostrar directo
+                    textResultado.setText(mensaje);
+                }
+
+            } catch (Exception e) {
+                textResultado.setText(mensaje);
+            }
+        });
     }
+
 }

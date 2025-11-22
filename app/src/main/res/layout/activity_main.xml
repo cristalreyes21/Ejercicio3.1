@@ -17,21 +17,18 @@
             android:textStyle="bold"
             android:layout_gravity="center"/>
 
-        <!-- ID -->
         <EditText
             android:id="@+id/editId"
-            android:hint="ID del Producto (solo para Update/Delete)"
+            android:hint="ID del Producto (solo para actualizar/eleiminar)"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <!-- Nombre -->
         <EditText
             android:id="@+id/editNombre"
             android:hint="Nombre del producto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <!-- Precio -->
         <EditText
             android:id="@+id/editPrecio"
             android:hint="Precio"
@@ -39,7 +36,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <!-- Stock -->
         <EditText
             android:id="@+id/editStock"
             android:hint="Stock"
@@ -47,7 +43,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <!-- Botones CRUD -->
         <Button
             android:id="@+id/btnCrear"
             android:text="Crear Producto"
