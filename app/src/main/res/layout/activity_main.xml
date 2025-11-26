@@ -12,16 +12,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CRUD Productos con API KEY"
+            android:text="Agregar Producto"
             android:textSize="22sp"
             android:textStyle="bold"
             android:layout_gravity="center"/>
-
-        <EditText
-            android:id="@+id/editId"
-            android:hint="ID del Producto (solo para actualizar/eleiminar)"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
         <EditText
             android:id="@+id/editNombre"
@@ -45,27 +39,10 @@
 
         <Button
             android:id="@+id/btnCrear"
-            android:text="Crear Producto"
+            android:text="Agregar Producto"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/btnLeer"
-            android:text="Listar Productos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/btnActualizar"
-            android:text="Actualizar Producto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/btnEliminar"
-            android:text="Eliminar Producto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"/>
 
         <TextView
             android:id="@+id/textResultado"
