@@ -23,9 +23,10 @@
         </activity>
 
         <!-- Otras Activities -->
-        <activity android:name=".MenuActivity" android:exported="false"/>
-        <activity android:name=".ListaProductosActivity" android:exported="false"/>
-        <activity android:name=".MainActivity" android:exported="false"/>
+        <activity android:name=".MenuActivity"/>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".ListaProductosActivity"/>
+
 
     </application>
 

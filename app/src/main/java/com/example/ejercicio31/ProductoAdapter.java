@@ -13,18 +13,27 @@ import android.widget.Toast;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
 import org.json.JSONObject;
-import java.util.ArrayList;
+
+import java.io.IOException;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHolder> {
 
     private Context context;
     private List<Producto> lista;
+    private ApiCliente api; // ✅ ya existe la instancia
 
-    public ProductoAdapter(Context context, List<Producto> lista) {
+    // ✅ Constructor corregido (ahora recibe api)
+    public ProductoAdapter(Context context, List<Producto> lista, ApiCliente api) {
         this.context = context;
         this.lista = lista;
+        this.api = api;
     }
 
     @NonNull
@@ -55,10 +64,9 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
 
         // ✅ BOTÓN ELIMINAR
         holder.btnEliminar.setOnClickListener(v -> {
-            eliminarProducto(p.getId());
+            eliminarProducto(p.getId(), position);
         });
     }
-
 
     @Override
     public int getItemCount() {
@@ -80,7 +88,8 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
         }
     }
 
-    private void eliminarProducto(String id) {
+    // ✅ Función eliminar corregida
+    private void eliminarProducto(String id, int position, int index) {
         try {
             JSONObject json = new JSONObject();
             json.put("id", id);
@@ -96,6 +105,11 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
                 public void onResponse(Call call, Response response) throws IOException {
                     ((AppCompatActivity) context).runOnUiThread(() -> {
                         Toast.makeText(context, "Eliminado ✅", Toast.LENGTH_SHORT).show();
+
+                        // ✅ quitar de la lista visualmente
+                        lista.remove(index);
+                        notifyItemRemoved(index);
+                        notifyItemRangeChanged(index, lista.size());
                     });
                 }
             });
@@ -104,7 +118,4 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
             Toast.makeText(context, "Error JSON eliminar", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }
-

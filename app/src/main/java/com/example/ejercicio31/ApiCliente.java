@@ -2,7 +2,7 @@ package com.example.ejercicio31;
 import okhttp3.*;
 public class ApiCliente {
 
-    public static String API_KEY = "";
+    public static String API_KEY = "ecc367d49ac72ffb51ab5375f0eead4e";
     private static final String BASE_URL = "http://192.168.1.42:8080/api_crud/";
 
     OkHttpClient client = new OkHttpClient();
