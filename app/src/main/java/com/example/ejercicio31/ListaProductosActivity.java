@@ -28,17 +28,22 @@ public class ListaProductosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_productos);
 
-        api = new ApiCliente(); // instancia API
+        api = new ApiCliente();
 
         recyclerView = findViewById(R.id.recyclerProductos);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         adapter = new ProductoAdapter(this, listaProductos, api);
         recyclerView.setAdapter(adapter);
 
-        // Cargar datos desde backend/API que consulta tu base de datos
-        cargarProductos();
+        cargarProductos(); // primera carga
+    }
+
+    // ✅ Se ejecuta CADA vez que vuelves a la pantalla
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cargarProductos(); // recargar lista actualizada
     }
 
     private void cargarProductos() {
@@ -56,12 +61,10 @@ public class ListaProductosActivity extends AppCompatActivity {
                     String jsonData = response.body().string();
                     JSONArray jsonArray = new JSONArray(jsonData);
 
-                    listaProductos.clear(); // limpiar lista actual
+                    listaProductos.clear();
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject obj = jsonArray.getJSONObject(i);
-
-                        // ⚠ Ajusta las claves si tu API backend usa otros nombres
                         listaProductos.add(new Producto(
                                 obj.getString("id"),
                                 obj.getString("nombre"),
