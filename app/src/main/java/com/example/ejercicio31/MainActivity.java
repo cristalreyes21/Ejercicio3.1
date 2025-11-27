@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     Button btnCrear;
     ApiCliente api;
 
+    String modo = "crear"; // ✅ Declararla con valor por defecto
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,30 +33,34 @@ public class MainActivity extends AppCompatActivity {
         textResultado = findViewById(R.id.textResultado);
         btnCrear = findViewById(R.id.btnCrear);
 
-        // Revisar el modo: "crear" o "actualizar"
-        Intent intent = getIntent();
-        String modo = intent.getStringExtra("modo"); // puede ser null
-        String idProducto = intent.getStringExtra("id"); // ID del producto a actualizar
+        // Obtener Intent y modo
+        Intent intent = getIntent(); // puede ser null solo si la activity no se inició con Intent
+        if (intent != null && intent.hasExtra("modo")) {
+            modo = intent.getStringExtra("modo"); // ✅ Asignar el modo recibido
+        }
+
+        String idProducto = intent != null ? intent.getStringExtra("id") : null;
 
         if ("actualizar".equals(modo)) {
             btnCrear.setText("Actualizar Producto");
 
-            // Llenar campos con los datos existentes
-            editNombre.setText(intent.getStringExtra("nombre"));
-            editPrecio.setText(intent.getStringExtra("precio"));
-            editStock.setText(intent.getStringExtra("stock"));
+            // Llenar campos con los datos existentes si están presentes
+            if (intent != null) {
+                editNombre.setText(intent.getStringExtra("nombre"));
+                editPrecio.setText(intent.getStringExtra("precio"));
+                editStock.setText(intent.getStringExtra("stock"));
+            }
         }
 
         // Listener para crear o actualizar según el modo
         btnCrear.setOnClickListener(v -> {
             if ("actualizar".equals(modo)) {
-                actualizarProducto(idProducto); // ✅ Pasar el ID
+                actualizarProducto(idProducto); // ✅ ID pasado correctamente
             } else {
                 crearProducto();
             }
         });
     }
-
 
     private void crearProducto() {
         try {
@@ -80,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Metodo para actualizar producto (necesitarías EditText editId)
     private void actualizarProducto(String id) {
         try {
             JSONObject json = new JSONObject();
@@ -105,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
             mostrar("Error JSON: " + e.getMessage());
         }
     }
-
 
     private void mostrar(String mensaje) {
         runOnUiThread(() -> textResultado.setText(mensaje));

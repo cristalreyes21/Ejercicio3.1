@@ -2,8 +2,8 @@ package com.example.ejercicio31;
 import okhttp3.*;
 public class ApiCliente {
 
-    public static String API_KEY = ""; // ← CLAVE DINAMICA
-    private static final String BASE_URL = "http://192.168.1.35:8080/api_crud/";
+    public static String API_KEY = "";
+    private static final String BASE_URL = "http://192.168.1.42:8080/api_crud/";
 
     OkHttpClient client = new OkHttpClient();
 
