@@ -64,7 +64,8 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
 
         // ✅ BOTÓN ELIMINAR
         holder.btnEliminar.setOnClickListener(v -> {
-            eliminarProducto(p.getId(), position);
+            eliminarProducto(p.getId(), position, position);
+
         });
     }
 

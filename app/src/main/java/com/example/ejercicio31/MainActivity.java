@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
         btnCrear = findViewById(R.id.btnCrear);
 
         // Obtener Intent y modo
-        Intent intent = getIntent(); // puede ser null solo si la activity no se inició con Intent
+        Intent intent = getIntent();
         if (intent != null && intent.hasExtra("modo")) {
-            modo = intent.getStringExtra("modo"); // ✅ Asignar el modo recibido
+            modo = intent.getStringExtra("modo");
         }
 
         String idProducto = intent != null ? intent.getStringExtra("id") : null;
