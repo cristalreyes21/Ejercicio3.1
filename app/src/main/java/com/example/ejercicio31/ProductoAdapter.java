@@ -27,9 +27,9 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
 
     private Context context;
     private List<Producto> lista;
-    private ApiCliente api; // ✅ ya existe la instancia
+    private ApiCliente api;
 
-    // ✅ Constructor corregido (ahora recibe api)
+
     public ProductoAdapter(Context context, List<Producto> lista, ApiCliente api) {
         this.context = context;
         this.lista = lista;
@@ -51,7 +51,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
         holder.textPrecio.setText(p.getPrecio());
         holder.textStock.setText(p.getStock());
 
-        // ✅ BOTÓN EDITAR
+        // BOTÓN EDITAR
         holder.btnEditar.setOnClickListener(v -> {
             Intent i = new Intent(context, MainActivity.class);
             i.putExtra("modo", "actualizar");
@@ -62,7 +62,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
             context.startActivity(i);
         });
 
-        // ✅ BOTÓN ELIMINAR
+        // BOTÓN ELIMINAR
         holder.btnEliminar.setOnClickListener(v -> {
             eliminarProducto(p.getId(), position, position);
 
@@ -89,7 +89,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
         }
     }
 
-    // ✅ Función eliminar corregida
+    // Función eliminar
     private void eliminarProducto(String id, int position, int index) {
         try {
             JSONObject json = new JSONObject();
@@ -107,7 +107,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
                     ((AppCompatActivity) context).runOnUiThread(() -> {
                         Toast.makeText(context, "Eliminado ✅", Toast.LENGTH_SHORT).show();
 
-                        // ✅ quitar de la lista visualmente
+
                         lista.remove(index);
                         notifyItemRemoved(index);
                         notifyItemRangeChanged(index, lista.size());

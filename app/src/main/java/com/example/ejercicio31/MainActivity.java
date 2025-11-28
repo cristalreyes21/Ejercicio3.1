@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnCrear;
     ApiCliente api;
 
-    String modo = "crear"; // ✅ Declararla con valor por defecto
+    String modo = "crear";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

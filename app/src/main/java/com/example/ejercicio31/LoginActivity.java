@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         editApiKey = findViewById(R.id.editApiKey);
         btnIngresar = findViewById(R.id.btnIngresar);
 
-        // ✅ Usar el login del servidor
+        //login del servidor
         btnIngresar.setOnClickListener(v -> validarLogin());
     }
 
@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://192.168.1.42:8080/api_crud/login.php")
+                .url("http://192.168.1.35:8080/api_crud/login.php")
                 .post(formBody)
                 .build();
 
@@ -72,14 +72,14 @@ public class LoginActivity extends AppCompatActivity {
 
         client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {  // ✅ firma correcta
+            public void onFailure(Call call, IOException e) {
                 runOnUiThread(() ->
                         Toast.makeText(LoginActivity.this, "Error conexión: " + e.getMessage(), Toast.LENGTH_LONG).show()
                 );
             }
 
             @Override
-            public void onResponse(Call call, Response response) { // ✅ no debe lanzar IOException
+            public void onResponse(Call call, Response response) {
                 try {
                     String respuesta = response.body().string();
                     JSONObject json = new JSONObject(respuesta);

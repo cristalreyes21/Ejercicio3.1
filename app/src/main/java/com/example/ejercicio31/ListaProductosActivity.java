@@ -39,7 +39,7 @@ public class ListaProductosActivity extends AppCompatActivity {
         cargarProductos(); // primera carga
     }
 
-    // ✅ Se ejecuta CADA vez que vuelves a la pantalla
+
     @Override
     protected void onResume() {
         super.onResume();
